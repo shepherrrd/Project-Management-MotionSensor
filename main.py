@@ -15,7 +15,7 @@ img = cv2.resize(img, (640, 480))
 def check_face(frame):
     global face_match
     try:
-        result = DeepFace.verify(frame, img, model_name="Facenet", distance_metric="euclidean_l2")
+        result = DeepFace.verify(frame, img.copy(), model_name="Facenet", distance_metric="euclidean_l2")
         if result["verified"]:
             face_match = True
         else:
