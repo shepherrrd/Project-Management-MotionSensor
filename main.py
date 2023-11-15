@@ -9,6 +9,7 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 counter = 0
+#dd
 
 face_match = False
 img = cv2.imread("face1.jpg")
