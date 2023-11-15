@@ -1,6 +1,7 @@
 import threading
 import cv2
 from deepface import DeepFace
+import requests
 ## to setup run pip install deepface opencv-python tensorflow
 ## to run it use python3 main.py
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -10,16 +11,17 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 counter = 0
 
 face_match = False
-img = cv2.imread("face.jpg")
+img = cv2.imread("face1.jpg")
 img = cv2.resize(img, (640, 480))
 
 def check_face(frame):
     global face_match
     try:
-        result = DeepFace.verify(frame, img.copy(), model_name="Facenet", distance_metric="euclidean_l2")
+        result = DeepFace.verify(frame, img.copy())
         if result["verified"]:
             face_match = True
         else:
+            requests.post('http://localhost:3000/ping', data={'status': 'unauthorized', 'img' : frame})
             face_match = False
     except ValueError:
         face_match = False
