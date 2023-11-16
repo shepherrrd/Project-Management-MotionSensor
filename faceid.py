@@ -35,10 +35,10 @@ class CamApp(App):
         layout.add_widget(self.verification_label)
 
         # Load tensorflow/keras model
-        self.model = tf.keras.models.load_model('siamesemodel.h5', custom_objects={'L1Dist':L1Dist})
+        self.model = tf.keras.models.load_model('FaceRecognition/shepherd.keras', custom_objects={'L1Dist':L1Dist})
 
         # Setup video capture device
-        self.capture = cv2.VideoCapture(4)
+        self.capture = cv2.VideoCapture(0)
         Clock.schedule_interval(self.update, 1.0/33.0)
         
         return layout
@@ -47,7 +47,7 @@ class CamApp(App):
     def update(self, *args):
 
         # Read frame from opencv
-        ret, frame = self.capture.read()
+        ret,frame = self.capture.read()
         frame = frame[120:120+250, 200:200+250, :]
 
         # Flip horizontall and convert image to texture
@@ -85,9 +85,9 @@ class CamApp(App):
 
         # Build results array
         results = []
-        for image in os.listdir(os.path.join('application_data', 'verification_images')):
-            input_img = self.preprocess(os.path.join('application_data', 'input_image', 'input_image.jpg'))
-            validation_img = self.preprocess(os.path.join('application_data', 'verification_images', image))
+        for image in os.listdir(os.path.join('FaceRecognition','application_data', 'verification_images')):
+            input_img = self.preprocess(os.path.join('FaceRecognition','application_data', 'input_image', 'input_image.jpg'))
+            validation_img = self.preprocess(os.path.join('FaceRecognition','application_data', 'verification_images', image))
             
             # Make Predictions 
             result = self.model.predict(list(np.expand_dims([input_img, validation_img], axis=1)))
@@ -97,7 +97,7 @@ class CamApp(App):
         detection = np.sum(np.array(results) > detection_threshold)
         
         # Verification Threshold: Proportion of positive predictions / total positive samples 
-        verification = detection / len(os.listdir(os.path.join('application_data', 'verification_images'))) 
+        verification = detection / len(os.listdir(os.path.join('FaceRecognition','application_data', 'verification_images'))) 
         verified = verification > verification_threshold
 
         # Set verification text 

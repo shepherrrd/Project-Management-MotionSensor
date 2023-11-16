@@ -14,7 +14,7 @@ counter = 0
 face_match = False
 img = cv2.imread("face1.jpg")
 img = cv2.resize(img, (640, 480))
-
+siamese_model = tf.keras.models.load_model('./FaceRecognition/siamesemodel.h5')
 def check_face(frame):
     global face_match
     try:

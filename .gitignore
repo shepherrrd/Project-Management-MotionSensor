@@ -3,3 +3,5 @@ FaceRecognition/lfw.gz/
 FaceRecognition/data/
 FaceRecognition/lfw.gz
 application_data/
+FaceRecognition/*.h5
+FaceRecognition/*.keras
