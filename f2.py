@@ -6,12 +6,11 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from db import DatabaseManager
+from db import DatabaseManager 
 # Import other kivy stuff
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
 from kivy.logger import Logger
-
 # Import other dependencies
 import cv2
 import tensorflow as tf
@@ -99,9 +98,10 @@ class CamApp(App):
         # Verification Threshold: Proportion of positive predictions / total positive samples 
         verification = detection / len(os.listdir(os.path.join('FaceRecognition','application_data', 'verification_images'))) 
         verified = verification > verification_threshold
+        trif = DatabaseManager()
 
         # Set verification text 
-        self.verification_label.text = 'Verified' if verified == True else 'Unverified'
+        self.verification_label.text = 'Verified' if trif.get_setting_value() == True else 'Unverified'
 
         # Log out details
         Logger.info(results)
