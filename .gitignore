@@ -8,3 +8,5 @@ FaceRecognition/*.keras
 FaceRecognition/training_checkpoints
 frfnet/anchor/
 frfnet/images
+.gitignore
+frfnet/intruders
