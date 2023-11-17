@@ -6,3 +6,5 @@ application_data/
 FaceRecognition/*.h5
 FaceRecognition/*.keras
 FaceRecognition/training_checkpoints
+frfnet/anchor/
+frfnet/images
